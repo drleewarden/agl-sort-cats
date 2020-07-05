@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devtool: 'inline-source-map',
   entry: {
     app: Path.resolve(__dirname, '../src/scripts/main.js')
   },
@@ -27,12 +28,18 @@ module.exports = {
     })
   ],
   resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ],
     alias: {
       '~': Path.resolve(__dirname, '../src')
     }
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.mjs$/,
         include: /node_modules/,
